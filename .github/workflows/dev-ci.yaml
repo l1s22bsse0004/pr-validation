@@ -8,13 +8,15 @@ on:
         - opened
         - synchronize
 jobs:
-  dev-pr-validation-job:
+  linting-develop-job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Lint HTML Files
+      - name: Lint HTML Files with HTMLHint
         run:  npx htmlhint "**/*.html"
-      - name: Lint CSS Files
+      - name: Lint CSS Files with Stylelint
         run:  npx stylelint "**/*.css" 
+      - name: Test building with Parcel
+        run : npx parcel build "./src/index.html" --dist-dir "./dist" --public-url "./"
 
